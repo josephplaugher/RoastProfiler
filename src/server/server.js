@@ -2,7 +2,7 @@
 
 const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
-//const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
+const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
 const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
@@ -32,10 +32,15 @@ io.on('connection', (socket) => {
 });
 
 io.on('connection', (socket) => {
-	console.log('about to count')
-	for(var i=0; i < 5; i++) {
-	socket.emit("count", i);
-	}
+	console.log('socket open')
+	const parser = port.pipe(new Readline({ delimiter: '\n' }));// Read the port data
+	port.on("open", () => {
+		console.log('serial port open');
+	});
+	parser.on('data', data =>{
+		console.log('data from arduino:', data);
+		socket.emit('count', data)
+	});
 });
 
 // const parser = port.pipe(new Readline({ delimiter: '\n' }));// Read the port data

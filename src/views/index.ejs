@@ -15,15 +15,14 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       const socket = io();
-        socket.on("count", (arg) => {
+      var log = [];
+        socket.on('count', (arg) => {
           console.log(arg); 
-          var msg = []
-          for(arg = 0; arg < 5; arg++) {
-            msg.push(arg);
-          }
-          var str = msg.toString();
-          var msgHolder = document.getElementById('message');
-          msgHolder.innerHTML = str
+          newVal = arg;
+          log.push(newVal);
+          var str = log.toString();
+          var holder = document.getElementById('message');
+          holder.innerHTML = str
         });
     </script>
 		<div id="main"><h1>hello</h1></div>
