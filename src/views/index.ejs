@@ -13,9 +13,12 @@
 			You need to enable JavaScript to run this app.
 		</noscript>
     <script src="/socket.io/socket.io.js"></script>
+    <!-- <script src="/src/client/plotly.js"></script> -->
+    
     <script>
       const socket = io();
       var log = [];
+      var time = []
         socket.on('count', (arg) => {
           console.log(arg); 
           newVal = arg;
@@ -24,8 +27,16 @@
           var holder = document.getElementById('message');
           holder.innerHTML = str
         });
+
+
+      plot = document.getElementById('plot');
+    	Plotly.newPlot( plot, [{
+      x: [1, 2, 3, 4, 5],
+      y: [1, 2, 4, 8, 16] }], {
+      margin: { t: 0 } } );
     </script>
 		<div id="main"><h1>hello</h1></div>
     <div id="message"><p></p></div>
+    <div id="plot" style="width:600px;height:250px;"></div>
 	</body>
 </html>
