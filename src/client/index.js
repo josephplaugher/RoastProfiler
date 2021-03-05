@@ -14,7 +14,7 @@
 
     plot = document.getElementById('plot');
     var data = [{
-        x: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        x: [1, 2, 3, 3.2],
         y: [50,100,150,200,250,300,350,400],
         type: 'scatter'}]
     var layout = {
@@ -23,6 +23,7 @@
                 text: "Time",
                 standoff: 40
             },
+            range: [0, 12],
             autotick: false,
             ticks: 'outside',
             tick0: 0,
@@ -36,6 +37,7 @@
                 text: "Temperature",
                 standoff: 40
             },
+            range: [40, 450],
             autotick: false,
             ticks: 'outside',
             tick0: 0,
