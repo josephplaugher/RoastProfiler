@@ -6,17 +6,17 @@
 			name="viewport"
 			content="width=device-width, initial-scale=1, shrink-to-fit=no"
 		/>
-		<title>Roast Profiler</title>
+		<title>Roast Profiler</title>  
 	</head>
 	<body>
 		<noscript>
 			You need to enable JavaScript to run this app.
 		</noscript>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/plotly.js"></script>
-    
-    <div id="plot" style="width:600px;height:250px;"></div>
+    <script src="plotly.js"></script>
 
+    <div id="plot" style="width:600px;height:250px;"></div>
+	
     <script>
       const socket = io();
       var log = [];
@@ -37,7 +37,7 @@
       y: [1, 2, 4, 8, 16] }], {
       margin: { t: 0 } } );
     </script>
-		<div id="main"><h1>Roast Profile</h1></div>
+		<div id="main"><h1>hello</h1></div>
     <div id="message"><p></p></div>
-	</body>
+    </body>
 </html>

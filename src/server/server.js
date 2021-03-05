@@ -2,19 +2,23 @@
 // const SerialPort = require('serialport');
 // const Readline = require('@serialport/parser-readline');
 // const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
-const app = require('express')();
+const path = require('path');
+const express = require('express');
+const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
-http.listen(3000, () => {
-	console.log('listening on *:3000');
+const PORT = 3004
+http.listen(PORT, () => {
+	console.log('listening on port ' + PORT);
   });
 
+app.use(express.static('public'))
 app.set('view engine', 'ejs')
 app.set('views', './src/views')
 
 app.use((req, res, next) => {
-	res.header('Access-Control-Allow-Origin', 'localhost:3000')
+	res.header('Access-Control-Allow-Origin', 'localhost:'+ PORT)
 	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
 	res.header('Access-Control-Allow-Headers', 'Content-Type, authorization')
 	res.set('X-Powered-By', 'Coffee')
@@ -22,7 +26,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/', (req, res) => {
-	res.render('index')
+	res.render('index');
 });
 
 io.on('connection', (socket) => {
