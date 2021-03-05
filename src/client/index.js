@@ -13,8 +13,37 @@
 
 
     plot = document.getElementById('plot');
-      Plotly.newPlot( plot, [{
-    x: [1, 2, 3, 4, 5],
-    y: [3, 2, 4, 8, 26] }], {
-    margin: { t: 0 } } );
+    var data = [{
+        x: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        y: [50,100,150,200,250,300,350,400],
+        type: 'scatter'}]
+    var layout = {
+        xaxis: {
+            title: {
+                text: "Time",
+                standoff: 40
+            },
+            autotick: false,
+            ticks: 'outside',
+            tick0: 0,
+            dtick: 0.5,
+            ticklen: 5,
+            tickwidth: 5,
+            tickcolor: '#000'
+        },
+        yaxis: {
+            title: {
+                text: "Temperature",
+                standoff: 40
+            },
+            autotick: false,
+            ticks: 'outside',
+            tick0: 0,
+            dtick: 50,
+            ticklen: 5,
+            tickwidth: 5,
+            tickcolor: '#000'
+        }
+    };
+    Plotly.newPlot(plot, data, layout);
 })();
