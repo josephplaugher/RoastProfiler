@@ -13,7 +13,7 @@ http.listen(PORT, () => {
 	console.log('listening on port ' + PORT);
   });
 
-app.use(express.static('public'))
+app.use(express.static('src/client'))
 app.set('view engine', 'ejs')
 app.set('views', './src/views')
 
