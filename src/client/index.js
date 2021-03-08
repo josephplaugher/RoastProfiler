@@ -1,3 +1,5 @@
+const mg = require('metrics-graphics')
+
 (function () {
     const socket = io();
 
