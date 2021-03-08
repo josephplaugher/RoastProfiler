@@ -6,16 +6,16 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 //open the serial port
-const SerialPort = require('serialport');
-const Readline = require('@serialport/parser-readline');
-const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
+// const SerialPort = require('serialport');
+// const Readline = require('@serialport/parser-readline');
+// const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
 
 const PORT = 3004
 http.listen(PORT, () => {
 	console.log('listening on port ' + PORT);
   });
 
-app.use(express.static('src/client'))
+app.use(express.static('pubic'))
 app.set('view engine', 'ejs')
 app.set('views', './src/views')
 
@@ -33,9 +33,9 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
 	console.log('socket open')
-	const parser = port.pipe(new Readline({ delimiter: '\n' }));// Read the port data
-	parser.on('data', data =>{
-		data = parseInt(data.substring(0, data.length - 1));
-		socket.emit('count', data)
-	});
+	// const parser = port.pipe(new Readline({ delimiter: '\n' }));// Read the port data
+	// parser.on('data', data =>{
+	// 	data = parseInt(data.substring(0, data.length - 1));
+	// 	socket.emit('count', data)
+	// });
 });
