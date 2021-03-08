@@ -4,7 +4,9 @@
   "description": "an app to get serial data from arduino and graph a coffee roast profile",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/server/server.js",
+    "start": "concurrently \"npm run build\" \"npm run start-server\"",
+    "build": "webpack --config webpack.js",
+    "start-server": "NODE_ENV=development nodemon src/server/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -20,6 +22,7 @@
     "socket.io-client": "^3.1.2"
   },
   "devDependencies": {
+    "concurrently": "^6.0.0",
     "nodemon": "^2.0.7",
     "webpack": "^5.24.4",
     "webpack-cli": "^4.5.0"
