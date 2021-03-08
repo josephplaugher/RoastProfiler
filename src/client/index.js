@@ -48,8 +48,7 @@ const mg = require('metrics-graphics')
         console.log(newVal); 
         var tempDiv = document.getElementById('current-temp')
         tempDiv.innerHTML = newVal;
-        myChart.data.datasets[0].data.push(newVal)
-        myChart.update(); 
+    
     });
 
 })();
