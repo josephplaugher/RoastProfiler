@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
   entry: "./src/client/index.js",
   output: {
-    path: path.resolve(__dirname, "public"),
+    path: path.resolve(__dirname, "dist"),
     filename: "main.js"
   },
   module: {
@@ -22,4 +22,5 @@ module.exports = {
   },
   watchOptions: { ignored: /node_modules/},
   mode: 'development',
+  devtool: 'inline-source-map'
 };

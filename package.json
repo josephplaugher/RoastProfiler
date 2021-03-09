@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run build\" \"npm run start-server\"",
-    "build": "webpack --config webpack.js",
+    "build": "webpack --config webpack.js --watch",
     "start-server": "NODE_ENV=development nodemon src/server/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

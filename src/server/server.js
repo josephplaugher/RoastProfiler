@@ -10,12 +10,12 @@ const io = require('socket.io')(http);
 // const Readline = require('@serialport/parser-readline');
 // const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
 
-const PORT = 3004
+const PORT = 3005
 http.listen(PORT, () => {
 	console.log('listening on port ' + PORT);
   });
 
-app.use(express.static('pubic'))
+app.use(express.static('dist'))
 app.set('view engine', 'ejs')
 app.set('views', './src/views')
 
