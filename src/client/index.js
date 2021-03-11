@@ -6,7 +6,7 @@ var chart = new CanvasJS.Chart(plot, {
 	animationEnabled: true,
 	theme: "light2",
     axisY: { interval: 50, maximum: 500, title: "Bean Temp"},
-    axisX: { intervalType: "seconds", interval: 30, minumum:0, maximum: 700, title: "Time (Seconds)"},
+    axisX: { intervalType: "seconds", interval: 30, minimum:0, maximum: 700, title: "Time (Seconds)"},
 	data: [
 		{ type: "line", axisYYType: "primary", name: "Bean Temp",
 		 indexLabelFontSize: 12, lineColor: "green", 
