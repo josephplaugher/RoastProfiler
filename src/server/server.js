@@ -35,7 +35,6 @@ io.on('connection', (socket) => {
 	console.log('socket open')
 	const parser = port.pipe(new Readline({ delimiter: '\n' }));// Read the port data
 	parser.on('data', data =>{
-		data = parseInt(data.substring(0, data.length - 1));
 		socket.emit('count', data)
 	});
 });
