@@ -24,13 +24,15 @@ var chart = new CanvasJS.Chart(plot, {
 });
 chart.render();
 
+var s = 0  //start the seconds count timer
 socket.on('count', (newVal) => {
+	s++//add 1 second to timer
 	jsonData = JSON.parse(newVal.replace(/'/g,'"'))
     chart.options.data[0].dataPoints.push({ y: parseInt(jsonData.A)});
 	chart.options.data[1].dataPoints.push({ y: parseInt(jsonData.B)});
-   
 	chart.render();
 
+	//rate of rise
 	var beanTempDiv = document.getElementById('bean-temp')
 	var airTempDiv = document.getElementById('air-temp')
     beanTempDiv.innerHTML = jsonData.A;      
