@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-//open the serial port
+// open the serial port
 const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
 const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });

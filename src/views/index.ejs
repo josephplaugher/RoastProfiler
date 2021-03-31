@@ -13,21 +13,35 @@
 		<noscript>
 			You need to enable JavaScript to run this app.
 		</noscript>
-   
-	<div id="main">
-      <h1>Roast Profile</h1>
-	  <p1>Air: <span id='air-temp'></span></p1><br/> 
-      <p1>Bean: <span id='bean-temp'></span></p1><br/> 
-      <p1>RoR: <span id='ror'></span></p1><br/>
-	  <div id="legend">
-	  	<p1 style="color:green">Bean Temp</p1>
-		<p1 style="color:red">Air Temp</p1>
-	  </div>
-	</div>
-    </div>
-    <div id="plot"></div>
+   <div id='wrapper'>
+		<div id="main">
+			<h3>Roast Profile</h3>
+			<div>
+			<p1>Air: <span id='air-temp'></span></p1><br/> 
+			<p1>Bean: <span id='bean-temp'></span></p1><br/> 
+			<p1>RoR: <span id='ror'></span></p1>
+			</div>
+			<br/>
+			<div id="log-buttons">
+				<input type="button" id="yellow-button" value="Yellow" /></input><p1 id="yellow">[placeholder]</p1>
+				<input type="button" id="firstcrack-button" value="First Crack" /></input><p1 id="firstcrack">[placeholder]</p1>
+			</div>
+			<br/>
+			<div id="legend">
+				<p1 style="color:green">Bean Temp</p1>
+				<p1 style="color:red">Air Temp</p1>
+			</div>
+			<br/>
+			<div id="plot" style="position: relative;"></div>
+		</div>
+	
+		<br/>
+		
+</div>
 	</body>
  <script src="/socket.io/socket.io.js"></script>
  <script src="/canvasjs.min.js"></script>
  <script src="/main.js"></script>
+
+ <link rel="stylesheet" href="main.css">
 </html>

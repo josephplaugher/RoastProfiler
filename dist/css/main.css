@@ -1,0 +1,19 @@
+#canvasjs-chart-containter .canvasjs-chart-canvas {
+    position: relative;
+}
+
+#wrapper {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 800px 200px;
+}
+
+#main {
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+#log-buttons {
+    grid-row-start: 2;
+    grid-row-end: 2-end;
+}
