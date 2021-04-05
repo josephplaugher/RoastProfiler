@@ -6,18 +6,26 @@ var chart = new CanvasJS.Chart(plot, {
 	animationEnabled: true,
 	theme: "light2",
     axisY: { interval: 50, maximum: 500, title: "Bean Temp"},
+	axisY2: { interval: 3, maximum: 15, title: "Rate of Rise"},
     axisX: { intervalType: "seconds", interval: 30, minimum:0, maximum: 540, title: "Time (Seconds)"},
 	data: [
-		{ type: "line", axisYYType: "primary", name: "Bean Temp",
-		 indexLabelFontSize: 12, lineColor: "green", 
+		{ axisYIndex: 0, type: "line", axisYYType: "primary", name: "Bean Temp",
+		 showInLegend: true, indexLabelFontSize: 12, color: "green", 
 			dataPoints: [
 				{ y: 50 }
 			]
 		},
-		{ type: "line", axisYYType: "secondary", name: "Air Temp", 
-		indexLabelFontSize: 12, lineColor: "red", 
+		{ axisYIndex: 1, type: "line", axisYYType: "primary", name: "Air Temp", 
+		showInLegend: true, indexLabelFontSize: 12, color: "red", 
 		dataPoints: [
 			{ y: 100 }
+			]
+		},
+		//data set for Rate of Rise
+		{ axisYIndex: 2, type: "spline", axisYType: "secondary", name: "Rate of Rise", 
+		showInLegend: true, markerType: "triangle", indexLabelFontSize: 12, color: "black", 
+		dataPoints: [
+			{ y: 0 }
 			]
 		}
 	]
@@ -57,7 +65,11 @@ socket.on('count', (newVal) => {
 		var RoR = rise/15
 		// console.log("ft: ", ft, "st: ", st)
 		// console.log("RoR: ", RoR)
+		// change the ticker to the current ROR
 		RoR_el.innerHTML = RoR.toFixed(2);
+		// plot the current RoR on the secondary Y axis
+		chart.options.data[2].dataPoints.push({ y: parseInt(RoR.toFixed(2)), x:s});
+		chart.render();
 		// reset the rorTimer
 		rorTimer = 0;
 	}
@@ -75,6 +87,8 @@ yellowButton.addEventListener("click", function() {
 	var time = data.length -1;
 	var yellowVal = temp + " degrees at " + time + " seconds";
 	yellow.innerHTML = yellowVal;
+	chart.options.data[0].dataPoints[time].label="yellow";
+	chart.options.data[0].dataPoints[time].markerSize=15;
 })
 
 firstCrackButton.addEventListener("click", function() {
@@ -83,4 +97,6 @@ firstCrackButton.addEventListener("click", function() {
 	var time = data.length -1;
 	var firstCrackVal = temp + " degrees at " + time + " seconds";
 	firstCrack.innerHTML = firstCrackVal;
+	chart.options.data[0].dataPoints[time].label="first crack";
+	chart.options.data[0].dataPoints[time].markerSize=15;
 })
