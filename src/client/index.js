@@ -2,10 +2,21 @@ const socket = io();
 
 var plot = document.getElementById('plot'); 
 
+var startButton = document.getElementById('start-button');
+var stopButton = document.getElementById('stop-button');
+var resetButton = document.getElementById('reset-button');
+var yellowButton = document.getElementById('yellow-button');
+var firstCrackButton = document.getElementById('firstcrack-button');
+var doneButton = document.getElementById('done-button');
+var yellow = document.getElementById('yellow');
+var firstCrack = document.getElementById('firstcrack');
+var done = document.getElementById('done');
+
+
 var chart = new CanvasJS.Chart(plot, {
 	animationEnabled: true,
 	theme: "light2",
-    axisY: { interval: 50, maximum: 500, title: "Bean Temp"},
+    axisY: { interval: 50, maximum: 550, title: "Bean Temp"},
 	axisY2: { interval: 3, maximum: 15, title: "Rate of Rise"},
     axisX: { intervalType: "seconds", interval: 30, minimum:0, maximum: 540, title: "Time (Seconds)"},
 	data: [
@@ -34,53 +45,69 @@ chart.render();
 
 var s = 0  //start the seconds count timer
 var rorTimer = 0 //start the rate of rise timer
-socket.on('count', (newVal) => {
-	s++//add 1 second to timer
-	rorTimer++//add one second to rorTimer
 
-	jsonData = JSON.parse(newVal.replace(/'/g,'"'))
-    chart.options.data[0].dataPoints.push({ y: parseInt(jsonData.A)});
-	chart.options.data[1].dataPoints.push({ y: parseInt(jsonData.B)});
-	chart.render();
+startButton.addEventListener("click", function() {
+	socket.on('count', (newVal) => {
+		s++//add 1 second to timer
+		rorTimer++//add one second to rorTimer
 
-	var beanTempDiv = document.getElementById('bean-temp')
-	var airTempDiv = document.getElementById('air-temp')
-
-    beanTempDiv.innerHTML = jsonData.A;      
-	airTempDiv.innerHTML = jsonData.B; 
-
-	var currentDataArrayA = chart.options.data[0].dataPoints;
-	var currentDataArrayB = chart.options.data[1].dataPoints;
-	
-	sessionStorage.setItem("BT",JSON.stringify(currentDataArrayA))
-	sessionStorage.setItem("AT",JSON.stringify(currentDataArrayB))
-
-	//rate of rise
-	var RoR_el = document.getElementById('ror')
-
-	if(rorTimer == 15) {
-		var ft = jsonData.A;
-		var st = chart.options.data[0].dataPoints[chart.options.data[0].dataPoints.length - 15].y
-		var rise = ft - st;
-		var RoR = rise/15
-		// console.log("ft: ", ft, "st: ", st)
-		// console.log("RoR: ", RoR)
-		// change the ticker to the current ROR
-		RoR_el.innerHTML = RoR.toFixed(2);
-		// plot the current RoR on the secondary Y axis
-		chart.options.data[2].dataPoints.push({ y: parseInt(RoR.toFixed(2)), x:s});
+		jsonData = JSON.parse(newVal.replace(/'/g,'"'))
+		chart.options.data[0].dataPoints.push({ y: parseInt(jsonData.A)});
+		chart.options.data[1].dataPoints.push({ y: parseInt(jsonData.B)});
 		chart.render();
-		// reset the rorTimer
-		rorTimer = 0;
+
+		var beanTempDiv = document.getElementById('bean-temp')
+		var airTempDiv = document.getElementById('air-temp')
+
+		beanTempDiv.innerHTML = jsonData.A;      
+		airTempDiv.innerHTML = jsonData.B; 
+
+		var currentDataArrayA = chart.options.data[0].dataPoints;
+		var currentDataArrayB = chart.options.data[1].dataPoints;
+		
+		sessionStorage.setItem("BT",JSON.stringify(currentDataArrayA))
+		sessionStorage.setItem("AT",JSON.stringify(currentDataArrayB))
+
+		//rate of rise
+		var RoR_el = document.getElementById('ror')
+
+		if(rorTimer == 15) {
+			var ft = jsonData.A;
+			var st = chart.options.data[0].dataPoints[chart.options.data[0].dataPoints.length - 15].y
+			var rise = ft - st;
+			var RoR = rise/15
+			// console.log("ft: ", ft, "st: ", st)
+			// console.log("RoR: ", RoR)
+			// change the ticker to the current ROR
+			RoR_el.innerHTML = RoR.toFixed(2);
+			// plot the current RoR on the secondary Y axis
+			chart.options.data[2].dataPoints.push({ y: parseInt(RoR.toFixed(2)), x:s});
+			chart.render();
+			// reset the rorTimer
+			rorTimer = 0;
+		}
+	});
+});
+
+stopButton.addEventListener("click", function() {
+	socket.off('count');
+});
+
+resetButton.addEventListener("click", function() {
+	var clear = confirm("You really want to clear the chart?")
+	if(clear == true) {
+		socket.off('count');
+		chart.options.data[0].dataPoints = [];
+		chart.options.data[1].dataPoints = [];
+		chart.options.data[2].dataPoints = [];
+		chart.render();
 	}
 });
 
-var yellowButton = document.getElementById('yellow-button');
-var firstCrackButton = document.getElementById('firstcrack-button');
-var doneButton = document.getElementById('done-button');
-var yellow = document.getElementById('yellow');
-var firstCrack = document.getElementById('firstcrack');
-var done = document.getElementById('done');
+//if I needed to stop plotting because of a false roaster start, I need to first clear the plot and start over
+chart.options.data[0].dataPoints = [];
+chart.options.data[1].dataPoints = [];
+chart.options.data[2].dataPoints = [];
 
 yellowButton.addEventListener("click", function() {
 	var data = JSON.parse(sessionStorage.getItem("BT"));
@@ -106,10 +133,9 @@ doneButton.addEventListener("click", function() {
 	var data = JSON.parse(sessionStorage.getItem("BT"));
 	var temp = data[data.length -1].y;
 	var time = data.length -1;
-	var timeStamp = time /60;
-	var minTimeStamp = timeStamp.toFixed(0)
-	var secTimeStamp = timeStamp.toFixed(2) * 60;
-	var doneVal = temp + " degrees at " + time + " seconds (" + minTimeStamp + ":" + secTimeStamp + ")";
+	var minutes = Math.floor(time / 60);
+	var seconds = time - minutes * 60;
+	var doneVal = temp + " degrees at " + time + " seconds (" + minutes + ":" + seconds + ")";
 	done.innerHTML = doneVal;
 	chart.options.data[0].dataPoints[time].label="done";
 	chart.options.data[0].dataPoints[time].markerSize=15;
