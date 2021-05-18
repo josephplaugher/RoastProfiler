@@ -77,9 +77,10 @@ socket.on('count', (newVal) => {
 
 var yellowButton = document.getElementById('yellow-button');
 var firstCrackButton = document.getElementById('firstcrack-button');
+var doneButton = document.getElementById('done-button');
 var yellow = document.getElementById('yellow');
 var firstCrack = document.getElementById('firstcrack');
-
+var done = document.getElementById('done');
 
 yellowButton.addEventListener("click", function() {
 	var data = JSON.parse(sessionStorage.getItem("BT"));
@@ -98,5 +99,18 @@ firstCrackButton.addEventListener("click", function() {
 	var firstCrackVal = temp + " degrees at " + time + " seconds";
 	firstCrack.innerHTML = firstCrackVal;
 	chart.options.data[0].dataPoints[time].label="first crack";
+	chart.options.data[0].dataPoints[time].markerSize=15;
+})
+
+doneButton.addEventListener("click", function() {
+	var data = JSON.parse(sessionStorage.getItem("BT"));
+	var temp = data[data.length -1].y;
+	var time = data.length -1;
+	var timeStamp = time /60;
+	var minTimeStamp = timeStamp.toFixed(0)
+	var secTimeStamp = timeStamp.toFixed(2) * 60;
+	var doneVal = temp + " degrees at " + time + " seconds (" + minTimeStamp + ":" + secTimeStamp + ")";
+	done.innerHTML = doneVal;
+	chart.options.data[0].dataPoints[time].label="done";
 	chart.options.data[0].dataPoints[time].markerSize=15;
 })
