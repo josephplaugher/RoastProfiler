@@ -3,20 +3,20 @@ const path = require("path");
 module.exports = {
   entry: "./src/client/index.js",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "./dist"),
     filename: "main.js"
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/, 
-      },
+        exclude: /node_modules/
+      }
     ]
   },
   resolve: {
     alias: {
-      Util: path.resolve(__dirname, "src/client/Util/"),
+      Util: path.resolve(__dirname, "src/Util/"),
       css: path.resolve(__dirname, "src/client/css/")
     }
   },

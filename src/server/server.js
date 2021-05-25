@@ -38,3 +38,5 @@ io.on('connection', (socket) => {
 		socket.emit('count', data)
 	});
 });
+
+//sudo chmod a+rw /dev/ttyACM0

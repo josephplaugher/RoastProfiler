@@ -15,11 +15,15 @@
 		</noscript>
    <div id='wrapper'>
 		<div id="main">
-			<h3>Roast Profile</h3>
-			<div>
-			<p1>Air: <span id='air-temp'></span></p1><br/> 
-			<p1>Bean: <span id='bean-temp'></span></p1><br/> 
-			<p1>RoR: <span id='ror'></span></p1>
+			<h3 style="float: right;">Roast Profile</h3> 
+				<p1>Coffee </p1><input type="text" id="coffee"></input>
+				<p1>Batch </p1><input type="text" id="batch" size="40"></input>
+			<div><br/>
+			<p1 >Air: <span id='air-temp'></span><span>		|</span></p1>
+			<p1>Bean: <span id='bean-temp'></span><span>		|</span></p1>
+			<p1>RoR: <span id='ror'></span><span>		|</span></p1>
+			<p1>Time from First Crack: <span id='tffc'></span><span>		|</span></p1>
+			<p1>Dev Time Ratio: <span id='dtr'></span></p1>
 			</div>
 			<br/>
 			<div id="log-buttons">
@@ -43,5 +47,5 @@
  <script src="/canvasjs.min.js"></script>
  <script src="/main.js"></script>
 
- <link rel="stylesheet" href="main.css">
+ <link type="text/css" href="/dist/css/main.css">
 </html>
