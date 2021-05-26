@@ -8,6 +8,8 @@ var resetButton = document.getElementById('reset-button');
 var yellowButton = document.getElementById('yellow-button');
 var firstCrackButton = document.getElementById('firstcrack-button');
 var doneButton = document.getElementById('done-button');
+var print = document.getElementById('print');
+var save = document.getElementById('save');
 var dtr = document.getElementById('dtr');
 var yellow = document.getElementById('yellow');
 var firstCrack = document.getElementById('firstcrack');
@@ -23,7 +25,7 @@ coffee.addEventListener('focusout', function() {
 	var date = currentdate.getFullYear() + "-"
             + (currentdate.getMonth()+1)  + "-" 
 			+ currentdate.getDate() + ". "  
-            + (currentdate.getHours()-2) + ":"
+            + currentdate.getHours() + ":"
             + currentdate.getMinutes() + " - "
    var batchNo = date + coffee.value;
    batch.value = batchNo;
@@ -132,11 +134,6 @@ resetButton.addEventListener("click", function() {
 	}
 });
 
-//if I needed to stop plotting because of a false roaster start, I need to first clear the plot and start over
-chart.options.data[0].dataPoints = [];
-chart.options.data[1].dataPoints = [];
-chart.options.data[2].dataPoints = [];
-
 yellowButton.addEventListener("click", function() {
 	var data = JSON.parse(sessionStorage.getItem("BT"));
 	var temp = data[data.length -1].y;
@@ -174,3 +171,10 @@ function SecondsToMinutes(time) {
 	var seconds = time - minutes * 60;
 	return {minutes: minutes, seconds: seconds}
 }
+
+print.addEventListener("click", function PrintChart() {
+	document.title = batch.value;
+	console.log('title,', document.title, 'batch,', batch.value)
+	window.print()
+})
+
