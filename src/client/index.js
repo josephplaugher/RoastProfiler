@@ -9,6 +9,7 @@ var resetButton = document.getElementById('reset-button');
 var yellowButton = document.getElementById('yellow-button');
 var doneButton = document.getElementById('done-button');
 <<<<<<< HEAD
+<<<<<<< HEAD
 var print = document.getElementById('print');
 var save = document.getElementById('save');
 var dtr = document.getElementById('dtr');
@@ -33,6 +34,10 @@ coffee.addEventListener('focusout', function() {
 })
 =======
 >>>>>>> modularizeGrowingCodebase
+=======
+var coffee = document.getElementById('coffee');
+
+>>>>>>> modularizeGrowingCodebase
 
 var chart = new CanvasJS.Chart(plot, {
 	animationEnabled: true,
@@ -42,6 +47,7 @@ var chart = new CanvasJS.Chart(plot, {
 	axisX: { intervalType: "seconds", interval: 30, minimum: 0, maximum: 540, title: "Time (Seconds)" },
 	data: InitialChartData
 });
+<<<<<<< HEAD
 <<<<<<< HEAD
 chart.render();
 
@@ -157,11 +163,20 @@ print.addEventListener("click", function PrintChart() {
 })
 
 =======
+=======
+
+chart.render()
+
+>>>>>>> modularizeGrowingCodebase
 coffee.addEventListener('focusout', RoastControls.SetBatchNumber)
 stopButton.addEventListener('click', () => { RoastControls.StopChart(chart) })
 resetButton.addEventListener('click', () => { RoastControls.ClearChart(chart) })
 stopButton.addEventListener('click', () => { RoastControls.StopChart })
 yellowButton.addEventListener('click', () => { RoastControls.MarkYellow(chart) })
 doneButton.addEventListener('click', () => { RoastControls.MarkDone(chart) })
+<<<<<<< HEAD
+startButton.addEventListener("click", () => { StartRoast(chart) })
+>>>>>>> modularizeGrowingCodebase
+=======
 startButton.addEventListener("click", () => { StartRoast(chart) })
 >>>>>>> modularizeGrowingCodebase
