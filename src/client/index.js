@@ -1,24 +1,25 @@
-const socket = io();
+const StartRoast = require('./StartRoast')
+const RoastControls = require('./RoastControls')
+const InitialChartData = require('./InitialChartData')
 
-var plot = document.getElementById('plot'); 
-
+var plot = document.getElementById('plot');
 var startButton = document.getElementById('start-button');
 var stopButton = document.getElementById('stop-button');
 var resetButton = document.getElementById('reset-button');
 var yellowButton = document.getElementById('yellow-button');
-var firstCrackButton = document.getElementById('firstcrack-button');
 var doneButton = document.getElementById('done-button');
+<<<<<<< HEAD
 var print = document.getElementById('print');
 var save = document.getElementById('save');
 var dtr = document.getElementById('dtr');
 var yellow = document.getElementById('yellow');
 var firstCrack = document.getElementById('firstcrack');
 var done = document.getElementById('done');
+=======
+>>>>>>> modularizeGrowingCodebase
 var coffee = document.getElementById('coffee');
-var batch = document.getElementById('batch');
 
-var FirstCrackAcheived = false
-
+<<<<<<< HEAD
 coffee.addEventListener('focusout', function() {
 	//get the current date and time 
 	var currentdate = new Date();
@@ -30,35 +31,18 @@ coffee.addEventListener('focusout', function() {
    var batchNo = date + coffee.value;
    batch.value = batchNo;
 })
+=======
+>>>>>>> modularizeGrowingCodebase
 
 var chart = new CanvasJS.Chart(plot, {
 	animationEnabled: true,
 	theme: "light2",
-    axisY: { interval: 50, maximum: 550, title: "Bean Temp"},
-	axisY2: { interval: 3, minimum: -5, maximum: 15, title: "Rate of Rise"},
-    axisX: { intervalType: "seconds", interval: 30, minimum:0, maximum: 540, title: "Time (Seconds)"},
-	data: [
-		{ axisYIndex: 0, type: "line", axisYYType: "primary", name: "Bean Temp",
-		 showInLegend: true, indexLabelFontSize: 12, color: "green", 
-			dataPoints: [
-				{ y: 50 }
-			]
-		},
-		{ axisYIndex: 1, type: "line", axisYYType: "primary", name: "Air Temp", 
-		showInLegend: true, indexLabelFontSize: 12, color: "red", 
-		dataPoints: [
-			{ y: 100 }
-			]
-		},
-		//data set for Rate of Rise
-		{ axisYIndex: 2, type: "spline", axisYType: "secondary", name: "Rate of Rise", 
-		showInLegend: true, markerType: "triangle", indexLabelFontSize: 12, color: "black", 
-		dataPoints: [
-			{ y: 0 }
-			]
-		}
-	]
+	axisY: { interval: 50, maximum: 550, title: "Bean Temp" },
+	axisY2: { interval: 3, minimum: -5, maximum: 15, title: "Rate of Rise" },
+	axisX: { intervalType: "seconds", interval: 30, minimum: 0, maximum: 540, title: "Time (Seconds)" },
+	data: InitialChartData
 });
+<<<<<<< HEAD
 chart.render();
 
 var s = 0  //start the seconds count timer
@@ -154,18 +138,12 @@ firstCrackButton.addEventListener("click", function() {
 	chart.options.data[0].dataPoints[time].markerSize=15;
 	FirstCrackAchieved = true;
 })
+=======
+>>>>>>> modularizeGrowingCodebase
 
-doneButton.addEventListener("click", function() {
-	var data = JSON.parse(sessionStorage.getItem("BT"));
-	var temp = data[data.length -1].y;
-	var time = data.length -1;
-	var timeStamp = SecondsToMinutes(time);
-	var doneVal = temp + " degrees at " + timeStamp.seconds + " seconds (" + timeStamp.minutes + ":" + timeStamp.seconds + ")";
-	done.innerHTML = doneVal;
-	chart.options.data[0].dataPoints[time].label="done";
-	chart.options.data[0].dataPoints[time].markerSize=15;
-})
+chart.render()
 
+<<<<<<< HEAD
 function SecondsToMinutes(time) {
 	var minutes = Math.floor(time / 60);
 	var seconds = time - minutes * 60;
@@ -178,3 +156,12 @@ print.addEventListener("click", function PrintChart() {
 	window.print()
 })
 
+=======
+coffee.addEventListener('focusout', RoastControls.SetBatchNumber)
+stopButton.addEventListener('click', () => { RoastControls.StopChart(chart) })
+resetButton.addEventListener('click', () => { RoastControls.ClearChart(chart) })
+stopButton.addEventListener('click', () => { RoastControls.StopChart })
+yellowButton.addEventListener('click', () => { RoastControls.MarkYellow(chart) })
+doneButton.addEventListener('click', () => { RoastControls.MarkDone(chart) })
+startButton.addEventListener("click", () => { StartRoast(chart) })
+>>>>>>> modularizeGrowingCodebase

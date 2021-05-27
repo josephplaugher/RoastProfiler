@@ -13,14 +13,14 @@ const io = require('socket.io')(http);
 const PORT = 3005
 http.listen(PORT, () => {
 	console.log('listening on port ' + PORT);
-  });
+});
 
 app.use(express.static('dist'))
 app.set('view engine', 'ejs')
 app.set('views', './src/views')
 
 app.use((req, res, next) => {
-	res.header('Access-Control-Allow-Origin', 'localhost:'+ PORT)
+	res.header('Access-Control-Allow-Origin', 'localhost:' + PORT)
 	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
 	res.header('Access-Control-Allow-Headers', 'Content-Type, authorization')
 	res.set('X-Powered-By', 'Coffee')
@@ -32,11 +32,19 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
+<<<<<<< HEAD
 	// console.log('socket open')
 	// const parser = port.pipe(new Readline({ delimiter: '\n' }));// Read the port data
 	// parser.on('data', data =>{
 	// 	socket.emit('count', data)
 	// });
+=======
+	console.log('socket open')
+	const parser = port.pipe(new Readline({ delimiter: '\n' }));// Read the port data
+	parser.on('data', data => {
+		socket.emit('count', data)
+	});
+>>>>>>> modularizeGrowingCodebase
 });
 
 //sudo chmod a+rw /dev/ttyACM0
