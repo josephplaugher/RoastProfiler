@@ -7,6 +7,7 @@ var startButton = document.getElementById('start-button');
 var stopButton = document.getElementById('stop-button');
 var resetButton = document.getElementById('reset-button');
 var yellowButton = document.getElementById('yellow-button');
+var firstCrackButton = document.getElementById('firstcrack-button');
 var doneButton = document.getElementById('done-button');
 var coffee = document.getElementById('coffee');
 
@@ -27,5 +28,6 @@ stopButton.addEventListener('click', () => { RoastControls.StopChart(chart) })
 resetButton.addEventListener('click', () => { RoastControls.ClearChart(chart) })
 stopButton.addEventListener('click', () => { RoastControls.StopChart })
 yellowButton.addEventListener('click', () => { RoastControls.MarkYellow(chart) })
+firstCrackButton.addEventListener('click', () => { RoastControls.MarkFirstCrack(chart) })
 doneButton.addEventListener('click', () => { RoastControls.MarkDone(chart) })
 startButton.addEventListener("click", () => { StartRoast(chart) })
