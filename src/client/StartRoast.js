@@ -40,7 +40,7 @@ const StartRoast = (chart) => {
             var RoR = rise / 15
             RoR_el.innerHTML = RoR.toFixed(2);
             // plot the current RoR on the secondary Y axis
-            chart.options.data[2].dataPoints.push({ y: parseInt(RoR.toFixed(2)), x: s });
+            chart.options.data[3].dataPoints.push({ y: parseInt(RoR.toFixed(2)), x: s });
             chart.render();
             // reset the rorTimer
             rorTimer = 0;

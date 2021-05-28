@@ -59,6 +59,7 @@ const ClearChart = (chart) => {
 		chart.options.data[0].dataPoints = [];
 		chart.options.data[1].dataPoints = [];
 		chart.options.data[2].dataPoints = [];
+		chart.options.data[3].dataPoints = [];
 		chart.render();
 		yellow.innerHTML = firstCrack.innerHTML = done.innerHTML = '[placeholder]'
 	}
