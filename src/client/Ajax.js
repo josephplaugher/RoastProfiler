@@ -1,25 +1,26 @@
+//const dotenv = require('dotenv').config()
 const axios = require('axios')
-const confirmBox = document.getElementById('confirm')
+var confirmBox = document.getElementById('confirm')
 
-const SaveChart = (chart) => {
+
+const SaveChart = (data) => {
+    console.log('batch val in ajax.js: ', data)
     const request = axios({
-        withCredentials: true,
-        url: BASE_URL_DEV + '/saveProfile',
+        url: 'http://localhost:3005/saveProfile',
         method: "post",
-        data: chart.data,
-        responseType: "json",
-
+        data: data,
+        responseType: "json"
     });
     request.catch(error => console.log("ajax error: " + error));
-    request.data((resp) => {
-        confirmBox.innerHTML = resp;
+    request.then((resp) => {
+        confirmBox.innerHTML = resp.data.result;
     })
 };
 
 const GetChart = (batch) => {
     const request = axios({
         withCredentials: true,
-        url: BASE_URL_DEV + '/getProfile',
+        url: '/getProfile',
         method: "get",
         data: batch,
         responseType: "json",

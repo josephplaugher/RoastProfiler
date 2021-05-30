@@ -5,6 +5,7 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const Profile = require('./Profile')
 // open the serial port
 const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
@@ -15,7 +16,7 @@ http.listen(PORT, () => {
 	console.log('listening on port ' + PORT);
 });
 
-app.use(express.static('dist'))
+app.use(express.static(process.cwd() + '/dist'))
 app.set('view engine', 'ejs')
 app.set('views', './src/views')
 
@@ -27,9 +28,16 @@ app.use((req, res, next) => {
 	next()
 })
 
+app.use(express.urlencoded({ extended: false })) // Parse application/x-www-form-urlencoded
+app.use(express.json()) // Parse application/json
+
 app.get('/', (req, res) => {
 	res.render('index');
 });
+
+app.post('/saveProfile', (req, res) => {
+	Profile.SaveProfile(req, res)
+})
 
 io.on('connection', (socket) => {
 	console.log('socket open')

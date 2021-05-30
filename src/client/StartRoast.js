@@ -33,11 +33,11 @@ const StartRoast = (chart) => {
         sessionStorage.setItem("BT", JSON.stringify(currentDataArrayA))
         sessionStorage.setItem("AT", JSON.stringify(currentDataArrayB))
 
-        if (rorTimer == 15) {
+        if (rorTimer == 30) {
             var ft = jsonData.A;
-            var st = chart.options.data[0].dataPoints[chart.options.data[0].dataPoints.length - 15].y
+            var st = chart.options.data[0].dataPoints[chart.options.data[0].dataPoints.length - 30].y
             var rise = ft - st;
-            var RoR = rise / 15
+            var RoR = rise / 30
             RoR_el.innerHTML = RoR.toFixed(2);
             // plot the current RoR on the secondary Y axis
             chart.options.data[3].dataPoints.push({ y: parseInt(RoR.toFixed(2)), x: s });
