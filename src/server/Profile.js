@@ -1,6 +1,6 @@
 const { Client } = require('pg')
 
-const SaveProfile = (req, res) => {
+const Connect = () => {
     const Conn = new Client({
         user: 'postgres',
         host: 'localhost',
@@ -8,15 +8,13 @@ const SaveProfile = (req, res) => {
         password: 'Edison1985!',
         port: 5432
     })
+    return Conn;
+}
+const SaveProfile = (req, res) => {
+    const Conn = Connect()
     Conn.connect()
 
     let i = req.body;
-    // let chartData = JSON.stringify(i.chart)
-    // console.log('request body: ', i)
-    console.log('coffee', i.coffee)
-    console.log('batch', i.batch)
-    console.log('yellow', i.yellow)
-    console.log('chart data: ', i.chart)
 
     let Query = {
         "text": `
@@ -29,6 +27,24 @@ const SaveProfile = (req, res) => {
         if (err) { console.error("Error: ", err.stack) }
         console.log("result ", result)
         res.status(200).json({ result: 'Roast Saved' })
+    })
+}
+
+const GetBatchList = (req, res) => {
+    console.log('get batch list request')
+    const Conn = Connect()
+    Conn.connect()
+
+    let i = req.body;
+
+    let Query = {
+        "text":
+            `SELECT batch FROM profiles`
+    }
+    Conn.query(Query, (err, result) => {
+        if (err) { console.error("Error: ", err.stack) }
+        console.log("result ", result.rows)
+        res.status(200).json({ result: result })
     })
 }
 
@@ -48,4 +64,4 @@ const saveCuppingNotes = (req, res) => {
     res.status(200).json({ result: 'Roast Saved' })
 }
 
-module.exports = { SaveProfile, saveCuppingNotes }
+module.exports = { SaveProfile, GetBatchList, saveCuppingNotes }

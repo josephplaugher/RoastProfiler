@@ -17,9 +17,7 @@ const SetBatchNumber = () => {
 	batch.value = batchNo;
 }
 
-const StopChart = () => {
-	socket.off('count');
-}
+
 
 const MarkYellow = (chart) => {
 	var data = JSON.parse(sessionStorage.getItem("BT"));
@@ -67,4 +65,4 @@ const ClearChart = (chart) => {
 }
 
 
-module.exports = { SetBatchNumber, StopChart, MarkYellow, MarkFirstCrack, MarkDone, ClearChart }
+module.exports = { SetBatchNumber, MarkYellow, MarkFirstCrack, MarkDone, ClearChart }

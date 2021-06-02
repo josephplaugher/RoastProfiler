@@ -39,6 +39,10 @@ app.post('/saveProfile', (req, res) => {
 	Profile.SaveProfile(req, res)
 })
 
+app.get('/getBatchList', (req, res) => {
+	Profile.GetBatchList(req, res)
+})
+
 io.on('connection', (socket) => {
 	const parser = port.pipe(new Readline({ delimiter: '\n' }));// Read the port data
 	parser.on('data', data => {

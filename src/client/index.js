@@ -3,25 +3,24 @@ const RoastControls = require('./RoastControls')
 const InitialChartData = require('./InitialChartData')
 const Print = require('./Print')
 
-var plot = document.getElementById('plot');
-var coffee = document.getElementById('coffee');
-var startButton = document.getElementById('start-button');
-var stopButton = document.getElementById('stop-button');
-var resetButton = document.getElementById('reset-button');
-var yellowButton = document.getElementById('yellow-button');
-var firstCrackButton = document.getElementById('firstcrack-button');
-var doneButton = document.getElementById('done-button');
-var saveChartButton = document.getElementById('save')
-var printButton = document.getElementById('print')
-var saveCuppingNotesButton = document.getElementById('save-cupping-notes')
-var confirmBox = document.getElementById('confirm')
-var dryAroma = document.getElementById('dry-aroma')
-var wetAroma = document.getElementById('wet-aromoa')
-var acidity = document.getElementById('acidity')
-var body = document.getElementById('flavors')
-var flavors = document.getElementById('flavors')
+const plot = document.getElementById('plot');
+const coffee = document.getElementById('coffee');
+const startButton = document.getElementById('start-button');
+const resetButton = document.getElementById('reset-button');
+const yellowButton = document.getElementById('yellow-button');
+const firstCrackButton = document.getElementById('firstcrack-button');
+const doneButton = document.getElementById('done-button');
+const saveChartButton = document.getElementById('save')
+const printButton = document.getElementById('print')
+const saveCuppingNotesButton = document.getElementById('save-cupping-notes')
+const confirmBox = document.getElementById('confirm')
+const dryAroma = document.getElementById('dry-aroma')
+const wetAroma = document.getElementById('wet-aromoa')
+const acidity = document.getElementById('acidity')
+const body = document.getElementById('flavors')
+const flavors = document.getElementById('flavors')
 
-var chart = new CanvasJS.Chart(plot, {
+const chart = new CanvasJS.Chart(plot, {
 	animationEnabled: true,
 	theme: "light2",
 	axisY: { interval: 50, maximum: 600, title: "Bean Temp" },
@@ -33,18 +32,14 @@ var chart = new CanvasJS.Chart(plot, {
 chart.render()
 
 coffee.addEventListener('focusout', RoastControls.SetBatchNumber)
-stopButton.addEventListener('click', () => { RoastControls.StopChart(chart) })
 resetButton.addEventListener('click', () => { RoastControls.ClearChart(chart) })
-stopButton.addEventListener('click', () => { RoastControls.StopChart() })
 yellowButton.addEventListener('click', () => { RoastControls.MarkYellow(chart) })
 firstCrackButton.addEventListener('click', () => { RoastControls.MarkFirstCrack(chart) })
 doneButton.addEventListener('click', () => { RoastControls.MarkDone(chart) })
 startButton.addEventListener('click', () => { StartRoast(chart) })
 printButton.addEventListener('click', () => { Print() })
 
-saveChartButton.addEventListener('focusout', () => {
-	confirmBox.innerHTML = '';
-})
+saveChartButton.addEventListener('focusout', () => { confirmBox.innerHTML = '' })
 
 saveCuppingNotesButton.addEventListener('click', () => {
 	Ajax.saveCuppingNotes({

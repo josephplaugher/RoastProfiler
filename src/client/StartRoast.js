@@ -2,18 +2,19 @@ const socket = io();
 const SecondsToMinutes = require('./SecondsToMinutes')
 const Ajax = require('./Ajax')
 
-var dtr = document.getElementById('dtr');
-var firstCrackButton = document.getElementById('firstcrack-button');
-var RoR_el = document.getElementById('ror')     //rate of rise
-var beanTempDiv = document.getElementById('bean-temp')
-var airTempDiv = document.getElementById('air-temp')
-var saveChartButton = document.getElementById('save')
+const dtr = document.getElementById('dtr');
+const firstCrackButton = document.getElementById('firstcrack-button');
+const RoR_el = document.getElementById('ror')     //rate of rise
+const beanTempDiv = document.getElementById('bean-temp')
+const airTempDiv = document.getElementById('air-temp')
+const saveChartButton = document.getElementById('save')
+const stopButton = document.getElementById('stop-button');
 
-
-var yellow = document.getElementById('yellow');
-var firstCrack = document.getElementById('firstcrack');
-var done = document.getElementById('done');
-var batch = document.getElementById('batch');
+const yellow = document.getElementById('yellow');
+const firstCrack = document.getElementById('firstcrack');
+const done = document.getElementById('done');
+const batch = document.getElementById('batch');
+const getBatch = document.getElementById('get-batch');
 
 var FirstCrackAchieved = false
 firstCrackButton.addEventListener('click', () => { FirstCrackAchieved = true })
@@ -78,6 +79,14 @@ const StartRoast = (chart) => {
             }
         })
     })
+}
+
+stopButton.addEventListener('click', () => { StopChart() })
+getBatch.addEventListener('click', () => { Ajax.GetBatchList() }) //make this run on page load
+
+const StopChart = () => {
+    socket.off('count');
+
 }
 
 module.exports = StartRoast;
