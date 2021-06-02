@@ -35,7 +35,8 @@ const MarkFirstCrack = (chart) => {
 	var data = JSON.parse(sessionStorage.getItem("BT"));
 	var temp = data[data.length - 1].y;
 	var time = data.length - 1;
-	var firstCrackVal = temp + " degrees at " + time + " seconds";
+	var timeStamp = SecondsToMinutes(time);
+	var firstCrackVal = temp + " degrees at " + time + " seconds (" + timeStamp.minutes + ":" + timeStamp.seconds + ")";
 	firstCrack.innerHTML = firstCrackVal;
 	chart.options.data[0].dataPoints[time].label = "first crack";
 	chart.options.data[0].dataPoints[time].markerSize = 15;
@@ -46,7 +47,7 @@ const MarkDone = (chart) => {
 	var temp = data[data.length - 1].y;
 	var time = data.length - 1;
 	var timeStamp = SecondsToMinutes(time);
-	var doneVal = temp + " degrees at " + timeStamp.seconds + " seconds (" + timeStamp.minutes + ":" + timeStamp.seconds + ")";
+	var doneVal = temp + " degrees at " + time + " seconds (" + timeStamp.minutes + ":" + timeStamp.seconds + ")";
 	done.innerHTML = doneVal;
 	chart.options.data[0].dataPoints[time].label = "done";
 	chart.options.data[0].dataPoints[time].markerSize = 15;
@@ -64,5 +65,6 @@ const ClearChart = (chart) => {
 		yellow.innerHTML = firstCrack.innerHTML = done.innerHTML = '[placeholder]'
 	}
 }
+
 
 module.exports = { SetBatchNumber, StopChart, MarkYellow, MarkFirstCrack, MarkDone, ClearChart }

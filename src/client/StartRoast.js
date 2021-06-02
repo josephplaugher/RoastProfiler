@@ -1,11 +1,19 @@
 const socket = io();
 const SecondsToMinutes = require('./SecondsToMinutes')
+const Ajax = require('./Ajax')
 
 var dtr = document.getElementById('dtr');
 var firstCrackButton = document.getElementById('firstcrack-button');
 var RoR_el = document.getElementById('ror')     //rate of rise
 var beanTempDiv = document.getElementById('bean-temp')
 var airTempDiv = document.getElementById('air-temp')
+var saveChartButton = document.getElementById('save')
+
+
+var yellow = document.getElementById('yellow');
+var firstCrack = document.getElementById('firstcrack');
+var done = document.getElementById('done');
+var batch = document.getElementById('batch');
 
 var FirstCrackAchieved = false
 firstCrackButton.addEventListener('click', () => { FirstCrackAchieved = true })
@@ -57,6 +65,19 @@ const StartRoast = (chart) => {
         }
 
     });
+
+
+    saveChartButton.addEventListener('click', () => {
+        Ajax.SaveChart({
+            coffee: coffee.value, batch: batch.value, yellow: yellow.innerHTML,
+            firstCrack: firstCrack.innerHTML, done: done.innerHTML,
+            chart: {
+                beanTemp: chart.options.data[0].dataPoints,
+                airTemp: chart.options.data[1].dataPoints,
+                rateOfRise: chart.options.data[3].dataPoints
+            }
+        })
+    })
 }
 
 module.exports = StartRoast;

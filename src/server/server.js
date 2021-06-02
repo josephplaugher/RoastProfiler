@@ -40,7 +40,6 @@ app.post('/saveProfile', (req, res) => {
 })
 
 io.on('connection', (socket) => {
-	console.log('socket open')
 	const parser = port.pipe(new Readline({ delimiter: '\n' }));// Read the port data
 	parser.on('data', data => {
 		socket.emit('count', data)
