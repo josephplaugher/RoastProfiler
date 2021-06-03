@@ -1,9 +1,9 @@
 const SecondsToMinutes = require('./SecondsToMinutes')
-var yellow = document.getElementById('yellow');
-var firstCrack = document.getElementById('firstcrack');
-var done = document.getElementById('done');
-var batch = document.getElementById('batch');
-const socket = io();
+const yellow = document.getElementById('yellow');
+const firstCrack = document.getElementById('firstcrack');
+const done = document.getElementById('done');
+const batch = document.getElementById('batch');
+const socket = require('socket.io-client')
 
 const SetBatchNumber = () => {
 	//get the current date and time 
@@ -16,8 +16,6 @@ const SetBatchNumber = () => {
 	var batchNo = date + coffee.value;
 	batch.value = batchNo;
 }
-
-
 
 const MarkYellow = (chart) => {
 	var data = JSON.parse(sessionStorage.getItem("BT"));

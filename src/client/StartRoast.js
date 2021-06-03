@@ -1,4 +1,4 @@
-const socket = io();
+const socket = require('socket.io-client')
 const SecondsToMinutes = require('./SecondsToMinutes')
 const Ajax = require('./Ajax')
 

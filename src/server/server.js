@@ -1,5 +1,4 @@
-// const dotenv = require('dotenv').config()
-
+// const dotenv = require('dotenv').config()s
 const path = require('path');
 const express = require('express');
 const app = express();
@@ -41,6 +40,10 @@ app.post('/saveProfile', (req, res) => {
 
 app.get('/getBatchList', (req, res) => {
 	Profile.GetBatchList(req, res)
+})
+
+app.get('/getChart/:id', (req, res) => {
+	Profile.GetChart(req, res)
 })
 
 io.on('connection', (socket) => {

@@ -25,7 +25,6 @@ const SaveProfile = (req, res) => {
     }
     Conn.query(Query, (err, result) => {
         if (err) { console.error("Error: ", err.stack) }
-        console.log("result ", result)
         res.status(200).json({ result: 'Roast Saved' })
     })
 }
@@ -39,7 +38,7 @@ const GetBatchList = (req, res) => {
 
     let Query = {
         "text":
-            `SELECT batch FROM profiles`
+            `SELECT id, batch FROM profiles`
     }
     Conn.query(Query, (err, result) => {
         if (err) { console.error("Error: ", err.stack) }
@@ -48,20 +47,39 @@ const GetBatchList = (req, res) => {
     })
 }
 
-const saveCuppingNotes = (req, res) => {
-    // console.log('request to server: ,', req.body)
-    Conn()
+const GetChart = (req, res) => {
+    console.log('get chart request', req.params.id)
+    const Conn = Connect()
+    Conn.connect()
 
-    let i = this.req.body;
+    let i = req.params;
+
     let Query = {
-        "text": `
-        INSERT INTO profiles 
-        (cupping_notes)
-        VALUES ($1) WHERE batch=$1`,
-        "values": [JSON.stringify(i.cuppingNotes)]
+        "text":
+            `SELECT id, coffee, batch, yellow, first_crack, done, chart_data 
+            FROM profiles WHERE id=$1`,
+        "values": [i.id]
     }
-    Conn.query(Query)
-    res.status(200).json({ result: 'Roast Saved' })
+    Conn.query(Query, (err, result) => {
+        if (err) { console.error("Error: ", err.stack) }
+        res.status(200).json({ result: result.rows })
+    })
 }
 
-module.exports = { SaveProfile, GetBatchList, saveCuppingNotes }
+const SaveCuppingNotes = (req, res) => {
+    // // console.log('request to server: ,', req.body)
+    // Conn()
+
+    // let i = this.req.body;
+    // let Query = {
+    //     "text": `
+    //     INSERT INTO profiles 
+    //     (cupping_notes)
+    //     VALUES ($1) WHERE batch=$1`,
+    //     "values": [JSON.stringify(i.cuppingNotes)]
+    // }
+    // Conn.query(Query)
+    // res.status(200).json({ result: 'Roast Saved' })
+}
+
+module.exports = { SaveProfile, GetBatchList, GetChart, SaveCuppingNotes }

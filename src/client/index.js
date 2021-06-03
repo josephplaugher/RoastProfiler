@@ -23,9 +23,9 @@ const flavors = document.getElementById('flavors')
 const chart = new CanvasJS.Chart(plot, {
 	animationEnabled: true,
 	theme: "light2",
-	axisY: { interval: 50, maximum: 600, title: "Bean Temp" },
-	axisY2: [{ interval: 1, minimum: -5, maximum: 5, title: "Rate of Rise" }, { interval: 15, mimum: 0, maximum: 30, title: "Fuel Pressure" }],
-	axisX: { intervalType: "seconds", interval: 30, minimum: 0, maximum: 540, title: "Time (Seconds)" },
+	axisY: { interval: 50, maximum: 550, title: "Bean Temp" },
+	axisY2: [{ interval: 1, minimum: -1, maximum: 2, title: "Rate of Rise" }, { interval: 5, minimum: 0, maximum: 30, title: "Fuel Pressure" }],
+	axisX: { intervalType: "seconds", interval: 30, minimum: 0, maximum: 600, title: "Time (Seconds)" },
 	data: InitialChartData
 });
 

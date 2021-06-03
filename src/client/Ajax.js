@@ -32,24 +32,25 @@ const GetBatchList = () => {
                 var newOption = document.createElement('option')
                 console.log('this bach: ', batches[i].batch)
                 newOption.text = batches[i].batch
+                newOption.id = batches[i].id
+                newOption.onclick = (event) => { GetChart(event) }
                 getBatch.add(newOption, getBatch[i])
             }
         })
-    } else { console.log('options already populated') }
+    }
 }
 
-const GetChart = (batch) => {
+const GetChart = (event) => {
     const request = axios({
-        withCredentials: true,
-        url: '/getProfile',
+        url: '/getChart/' + event.target.id,
         method: "get",
-        data: batch,
+        data: event.target.id,
         responseType: "json",
 
     });
     request.catch(error => console.log("ajax error: " + error));
-    request.data((resp) => {
-        //more complex logic to populate the chart here
+    request.then((resp) => {
+        console.log('retried chart data: ', resp.data.result)
     })
 };
 
