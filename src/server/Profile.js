@@ -30,7 +30,6 @@ const SaveProfile = (req, res) => {
 }
 
 const GetBatchList = (req, res) => {
-    console.log('get batch list request')
     const Conn = Connect()
     Conn.connect()
 
@@ -42,13 +41,11 @@ const GetBatchList = (req, res) => {
     }
     Conn.query(Query, (err, result) => {
         if (err) { console.error("Error: ", err.stack) }
-        console.log("result ", result.rows)
         res.status(200).json({ result: result })
     })
 }
 
 const GetChart = (req, res) => {
-    console.log('get chart request', req.params.id)
     const Conn = Connect()
     Conn.connect()
 
@@ -60,10 +57,11 @@ const GetChart = (req, res) => {
             FROM profiles WHERE id=$1`,
         "values": [i.id]
     }
-    Conn.query(Query, (err, result) => {
-        if (err) { console.error("Error: ", err.stack) }
-        res.status(200).json({ result: result.rows })
-    })
+    Conn.query(Query,
+        (err, result) => {
+            if (err) { console.error("Error: ", err.stack) }
+            res.status(200).json({ result: result.rows })
+        })
 }
 
 const SaveCuppingNotes = (req, res) => {

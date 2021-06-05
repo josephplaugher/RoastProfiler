@@ -1,4 +1,4 @@
-const socket = require('socket.io-client')
+const socket = io();
 const SecondsToMinutes = require('./SecondsToMinutes')
 const Ajax = require('./Ajax')
 
@@ -14,7 +14,6 @@ const yellow = document.getElementById('yellow');
 const firstCrack = document.getElementById('firstcrack');
 const done = document.getElementById('done');
 const batch = document.getElementById('batch');
-const getBatch = document.getElementById('get-batch');
 
 var FirstCrackAchieved = false
 firstCrackButton.addEventListener('click', () => { FirstCrackAchieved = true })
@@ -82,7 +81,7 @@ const StartRoast = (chart) => {
 }
 
 stopButton.addEventListener('click', () => { StopChart() })
-getBatch.addEventListener('click', () => { Ajax.GetBatchList() }) //make this run on page load
+
 
 const StopChart = () => {
     socket.off('count');

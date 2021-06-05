@@ -16,9 +16,8 @@ const SaveChart = (data) => {
     })
 };
 
-const GetBatchList = () => {
+const GetBatchList = (getSelectedChart) => {
     if (getBatch.options.length == 1) {
-        console.log('get batch')
         const request = axios({
             url: 'http://localhost:3005/getBatchList',
             method: "get",
@@ -27,13 +26,12 @@ const GetBatchList = () => {
         request.catch(error => console.log("ajax error: " + error));
         request.then((resp) => {
             var batches = resp.data.result.rows
-            console.log('retrieved batches,', batches)
             for (i = 0; i < batches.length; i++) {
                 var newOption = document.createElement('option')
                 console.log('this bach: ', batches[i].batch)
                 newOption.text = batches[i].batch
                 newOption.id = batches[i].id
-                newOption.onclick = (event) => { GetChart(event) }
+                newOption.onclick = (event) => { getSelectedChart(event) }
                 getBatch.add(newOption, getBatch[i])
             }
         })
@@ -41,18 +39,21 @@ const GetBatchList = () => {
 }
 
 const GetChart = (event) => {
-    const request = axios({
-        url: '/getChart/' + event.target.id,
-        method: "get",
-        data: event.target.id,
-        responseType: "json",
+    return new Promise((resolve, reject) => {
 
-    });
-    request.catch(error => console.log("ajax error: " + error));
-    request.then((resp) => {
-        console.log('retried chart data: ', resp.data.result)
+        const request = axios({
+            url: '/getChart/' + event.target.id,
+            method: "get",
+            data: event.target.id,
+            responseType: "json",
+
+        });
+        request.catch(error => { reject(console.log("ajax error: " + error)) });
+        request.then((resp) => {
+            resolve(resp.data.result[0])
+        })
     })
-};
+}
 
 
 module.exports = { SaveChart, GetBatchList, GetChart };

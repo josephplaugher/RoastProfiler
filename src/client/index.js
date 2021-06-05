@@ -1,3 +1,4 @@
+const Ajax = require('./Ajax')
 const StartRoast = require('./StartRoast')
 const RoastControls = require('./RoastControls')
 const InitialChartData = require('./InitialChartData')
@@ -12,6 +13,7 @@ const firstCrackButton = document.getElementById('firstcrack-button');
 const doneButton = document.getElementById('done-button');
 const saveChartButton = document.getElementById('save')
 const printButton = document.getElementById('print')
+const getBatchList = document.getElementById('get-batch');
 const saveCuppingNotesButton = document.getElementById('save-cupping-notes')
 const confirmBox = document.getElementById('confirm')
 const dryAroma = document.getElementById('dry-aroma')
@@ -40,6 +42,16 @@ startButton.addEventListener('click', () => { StartRoast(chart) })
 printButton.addEventListener('click', () => { Print() })
 
 saveChartButton.addEventListener('focusout', () => { confirmBox.innerHTML = '' })
+
+const getSelectedChart = async (event) => {
+	console.log('get chart')
+	let PrevChartData = await Ajax.GetChart(event)
+	console.log('retrieved data: ', PrevChartData)
+	chart.axisY.push(PrevChartData.chart_data.beanTemp)
+	chart.render()
+}
+
+getBatchList.addEventListener('click', () => { Ajax.GetBatchList(getSelectedChart) })
 
 saveCuppingNotesButton.addEventListener('click', () => {
 	Ajax.saveCuppingNotes({
