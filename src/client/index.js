@@ -26,7 +26,7 @@ const chart = new CanvasJS.Chart(plot, {
 	animationEnabled: true,
 	theme: "light2",
 	axisY: { interval: 50, maximum: 550, title: "Bean Temp" },
-	axisY2: [{ interval: 1, minimum: -1, maximum: 2, title: "Rate of Rise" }, { interval: 5, minimum: 0, maximum: 30, title: "Fuel Pressure" }],
+	axisY2: { interval: 1, minimum: -1, maximum: 2, title: "Rate of Rise" },
 	axisX: { intervalType: "seconds", interval: 30, minimum: 0, maximum: 600, title: "Time (Seconds)" },
 	data: InitialChartData
 });
@@ -44,10 +44,20 @@ printButton.addEventListener('click', () => { Print() })
 saveChartButton.addEventListener('focusout', () => { confirmBox.innerHTML = '' })
 
 const getSelectedChart = async (event) => {
-	console.log('get chart')
 	let PrevChartData = await Ajax.GetChart(event)
 	console.log('retrieved data: ', PrevChartData)
-	chart.axisY.push(PrevChartData.chart_data.beanTemp)
+	var beanTemp = PrevChartData.chart_data.beanTemp
+	var airTemp = PrevChartData.chart_data.airTemp
+	var rateOfRise = PrevChartData.chart_data.rateOfRise
+	for (i = 0; i < beanTemp.length; i++) {
+		chart.options.data[0].dataPoints.push(beanTemp[i])
+	}
+	for (i = 0; i < airTemp.length; i++) {
+		chart.options.data[1].dataPoints.push(airTemp[i])
+	}
+	for (i = 0; i < rateOfRise.length; i++) {
+		chart.options.data[2].dataPoints.push(rateOfRise[i])
+	}
 	chart.render()
 }
 
