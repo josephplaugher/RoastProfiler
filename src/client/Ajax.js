@@ -28,7 +28,6 @@ const GetBatchList = (getSelectedChart) => {
             var batches = resp.data.result.rows
             for (i = 0; i < batches.length; i++) {
                 var newOption = document.createElement('option')
-                console.log('this bach: ', batches[i].batch)
                 newOption.text = batches[i].batch
                 newOption.id = batches[i].id
                 newOption.onclick = (event) => { getSelectedChart(event) }

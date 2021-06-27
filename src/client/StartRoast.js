@@ -38,6 +38,9 @@ const StartRoast = (chart) => {
         var currentDataArrayA = chart.options.data[0].dataPoints;
         var currentDataArrayB = chart.options.data[1].dataPoints;
 
+        /* my codes doesn't appear to use sessionStorag anywhere else
+        let's get rid of these lines after verifying it doesn't break anything
+        */
         sessionStorage.setItem("BT", JSON.stringify(currentDataArrayA))
         sessionStorage.setItem("AT", JSON.stringify(currentDataArrayB))
 
@@ -74,7 +77,7 @@ const StartRoast = (chart) => {
             chart: {
                 beanTemp: chart.options.data[0].dataPoints,
                 airTemp: chart.options.data[1].dataPoints,
-                rateOfRise: chart.options.data[3].dataPoints
+                rateOfRise: chart.options.data[2].dataPoints
             }
         })
     })
